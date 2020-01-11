@@ -1,0 +1,43 @@
+{% extends 'blog/base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}   
+  
+  <div class="content-section">
+    <div class="media">
+      <img class="rounded-circle account-img" src="{{ user.profile.image.url }}">
+      <div class="media-body">
+        <div class="account-heading">
+          <h2 class="mt-5">{{ user.username }}</h2>
+          
+          <h4><a class="article-title" href="{% url 'followers' user.username %}">Followers: {{follower|length}}</a></h4>
+          <h4><a class="article-title" href="{% url 'following' user.username %}">Following: {{following|length}}</a></h4>
+        </div>
+        <p class="text-secondary">{{ user.email }}</p>
+      </div>
+
+            
+    </div>
+    <p class="article -content">
+        <div class='container'><h3><strong>{{user.profile.bio}}</strong></h3>
+        </div>
+    </p> 
+    <form method="POST" enctype='multipart/form-data'>
+
+      {% csrf_token %}
+
+      <fieldset class="form-group">
+
+        <legend class="border-bottom mb-4">Update Profile</legend>
+        {{ u_form|crispy }}
+        {{ p_form|crispy }}
+
+      </fieldset>
+
+      <div class="form-group">
+        <button class="btn btn-outline-info" type="submit">Update</button>
+      </div>
+      
+    </form>
+  </div>
+
+{% endblock content %}   

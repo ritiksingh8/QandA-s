@@ -1,0 +1,53 @@
+{% extends 'blog/base.html' %}
+{% block content %}
+
+    <div class="content-section">
+      <div class="media">
+        <img class="rounded-circle account-img" src="{{ user_profile.profile.image.url }}">
+        <div class="media-body">
+          <h2 class="account-heading mt-5">{{ user_profile.username }}</h2>
+          <h4><a class="article-title" href="{% url 'followers' user_profile.username%}">Followers: {{follower|length}}</a></h4>
+          <h4><a class="article-title" href="{% url 'following' user_profile.username%}">Following: {{following|length}}</a></h4>
+          <p class="text-secondary">{{ user_profile.email }}</p>
+        </div>
+      </div>
+      <p class="article -content">
+          <div class='container'><h3><strong>{{user_profile.profile.bio}}</strong></h3>
+          </div>
+      </p> 
+    </div>   
+
+    {% for answer in answers %}
+
+        {% for post in posts %}
+
+            {% if answer.post == post %} 
+
+                <article class="media content-section">
+                  <div class="media-body">
+                      <div class="article-metadata">
+                        <img class="rounded-circle article-img" src="{{ post.author.profile.image.url }}">
+                        <a class="mr-2" href="#">{{ post.author }}</a>
+                        <small class="text-muted">{{ post.date_posted|date:"F d, Y" }}</small>
+                      </div>
+                      <h2><a class="article-title" href="#">{{ post.title }}</a></h2>
+                      <div class='media-body ml-3 mt-3'>
+                          <div class="article-metadata container mb-3">
+                            <img class="rounded-circle article-img" src="{{ answer.author.profile.image.url }}">
+                            <a class="mr-2" href="#">{{ answer.author }}</a>
+                            <small class="text-muted">{{ answer.date_posted|date:"F d, Y" }}</small>  
+                          </div>
+                          <p class="article -content container">{{ answer.content }}</p>
+                      </div>
+                  </div>
+                </article>   
+              
+
+            {% endif %}
+
+        {% endfor%}
+
+    {% endfor %}
+  
+
+{% endblock content %}

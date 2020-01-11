@@ -1,0 +1,35 @@
+{% extends "blog/base.html" %}
+{% block content %}
+    {% for post in posts %}
+        <article class="media content-section">
+          <div class="media-body">
+            <div class="article-metadata">
+              <img class="rounded-circle article-img" src="{{ post.author.profile.image.url }}">
+              <a class="mr-2" href="{% url 'profile' post.author.username %}">{{ post.author }}</a>
+              <small class="text-muted">{{ post.date_posted|date:"F d, Y" }}</small>
+            </div>
+            <h2><a class="article-title" href="{% url 'question-detail' post.id %}">{{ post.title }}</a></h2>
+            
+        	{% for answer in answers %}
+            		{% if answer.post == post %}
+                  <div class='media-body ml-3'>
+              			<div class="article-metadata container">
+                      <img class="rounded-circle article-img" src="{{ answer.author.profile.image.url }}">
+  			              <a class="mr-2" href="{% url 'profile' answer.author.username %}">{{ answer.author }}</a>
+  			              <small class="text-muted">{{ answer.date_posted|date:"F d, Y" }}</small>	
+  			            </div>
+  			            <p class="article -content container">{{ answer.content }}</p>
+                  </div>
+                  <div class="mt-4 mb-2">
+                    <a href="{% url 'question-detail' post.id %}" class="btn btn-dark btn-sm btn-block" role="button">
+                      Read More
+                    </a>
+                  </div>
+                  {{ "<!--" }}
+			        {% endif %}   
+        	{% endfor%}
+          {{ "-->" }}	
+          </div>
+        </article>
+    {% endfor %}
+{% endblock content %}
