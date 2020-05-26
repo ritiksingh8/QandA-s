@@ -1,5 +1,6 @@
 {% extends "blog/base.html" %}
 {% block content %}
+    <a href="{% url 'post-create'%}" class="btn btn-primary my-2">Create a new question!</a>
     {% for post in posts %}
         <article class="media content-section">
           <div class="media-body">

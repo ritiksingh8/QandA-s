@@ -1,5 +1,7 @@
 {% extends "blog/base.html" %}
 {% block content %}
+      <a href="{% url 'answer-create' post.id %}" class="btn btn-primary my-2">Add an answer!</a>
+
       <article class="media content-section">
         <div class="media-body">
           <div class="article-metadata">

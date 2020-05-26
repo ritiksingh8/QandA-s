@@ -25,5 +25,7 @@ class Follow(models.Model):
 
       def __str__(self):
       
-          return "{} follows {}".format(self.following,self.follower)        
+          return "{} follows {}".format(self.following,self.follower)  
+
+
 

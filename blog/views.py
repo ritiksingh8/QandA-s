@@ -8,6 +8,7 @@ from django.views.generic import (
     DeleteView
 )
 from .models import Post, Answer
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 # Create your views here.
 
@@ -44,3 +45,28 @@ class QnADetailView(DetailView):
         context['answers'] = Answer.objects.all()
         ordering = ['-date_posted']
         return context
+
+class PostCreateView(LoginRequiredMixin, CreateView):
+    model = Post
+    fields=['title']
+
+    def form_valid(self,form):
+
+        form.instance.author=self.request.user
+        return super().form_valid(form)
+
+class AnswerCreateView(LoginRequiredMixin, CreateView):
+
+    model = Answer
+    fields = ['content']
+
+    def form_valid(self,form):
+
+        post = Post.objects.filter(id=self.kwargs['pk']).first()
+
+        form.instance.author = self.request.user
+        form.instance.post = post
+
+        return super().form_valid(form)
+
+

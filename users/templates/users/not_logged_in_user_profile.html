@@ -6,8 +6,8 @@
         <img class="rounded-circle account-img" src="{{ user_profile.profile.image.url }}">
         <div class="media-body">
           <h2 class="account-heading mt-5">{{ user_profile.username }}</h2>
-          <h4><a class="article-title" href="{% url 'followers' user_profile.username%}">Followers: {{follower|length}}</a></h4>
-          <h4><a class="article-title" href="{% url 'following' user_profile.username%}">Following: {{following|length}}</a></h4>
+          <h4><a class="article-title" href="{% url 'followers' user_profile.username %}">Followers: {{follower|length}}</a></h4>
+          <h4><a class="article-title" href="{% url 'following' user_profile.username %}">Following: {{following|length}}</a></h4>
           <p class="text-secondary">{{ user_profile.email }}</p>
         </div>
       </div>
